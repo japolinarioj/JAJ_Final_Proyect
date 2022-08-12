@@ -1,16 +1,20 @@
 import React from "react";
-import styled from "styled-components";
 import { BrowserRouter as Router , Routes, Route } from "react-router-dom";
-
+import styled from "styled-components";
+import GlobalStyles from "./GlobalStyles";
+import Homepage from "./Homepage";
+import NavBar from "./NavBar";
 
 const App = () => {
   return (
     <Router>
+      <GlobalStyles/>
+      <NavBar/>
         <Routes>
-          <Route path="/" element/>
+          <Route path="/" element={<Homepage/>}/>
           <Route path="/confirmed" element/>
           <Route path="">404: Oops!</Route>
-        </Routes>
+      </Routes>
     </Router>
   );
 };

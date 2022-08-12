@@ -2,37 +2,30 @@
 const express = require('express');
 const morgan = require('morgan');
 const PORT = 8000;
-const {MongoClient}=require("mongodb")
-require("dotenv").config();
-const{MONGO_URI} = process.env
-const options = {
-    useNewUrlParser:true,
-    useUnifiedTopology:true,
-};
-
-const Connection = async (Blogs) =>{
-    const client = new MongoClient(MONGO_URI,options);
-    try {
-    await client.connect();
-    const db=client.db(Blogs)
-    console.log("connected")
-
-
-}catch(err){
-    console.log(err.stack)
-}
-client.close
-console.log("disconnected")
-};
-Connection();
+const {Connection} = require("./routes/Connection")
+const {SignUpUser,SignInUser}=require("./routes/userHandlers");
+const {PostBlog} = require("./routes/blogHandlers");
+const { urlencoded } = require('express');
+const { GetCategories } = require('./routes/CategoriesHandlers');
 
 express()
 .use(morgan("tiny"))
 .use(express.json())
+.use(express.urlencoded({extended:true}))
+.use(express.static('public'))
 
-.get('/', (req, res) => {
-  res.status(200).json({status:200 , message:'Hello World!'})
-})
+//Users endpoints
+.get('/', (req, res) => {res.status(200).json({status:200 , message:'Hello World!'})})
+.post('/api/signup',SignUpUser)
+.post('/api/signin',SignInUser)
+
+//Blogs endpoints
+
+
+//Categories endpoints
+.get('/api/categories',GetCategories)
+
+
 .get("*", (req, res) => {
     res.status(404).json({
     status: 404,
@@ -43,3 +36,5 @@ express()
 .listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
 }); 
+
+Connection();

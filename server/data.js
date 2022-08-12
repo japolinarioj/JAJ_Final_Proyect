@@ -1,263 +1,91 @@
-const {v4:uuidv4} = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 
 
 const Users = [
     {   
-      _id:uuidv4(),
-      username: {
-        type: "jackelyn",
-        required: true,
-        unique:true,
-      },
-      email:{
-        type: "jackelyn@concordia.ca",
-        required: true,
-        unique:true,
-      },
-      password:{
-        type:"123456",
-        required:true,
-      },
-      profile:{
-        type:"",
-        default:"",
-      },
-      timestamp: true
+      username: " Jackelyn",
+      email:"jackelyn@concordia.ca",
+      password:"12345",
+      picture:"", 
     },
     {   
-        _id:uuidv4(),
-        username: {
-          type: "jackelyn",
-          required: true,
-          unique:true,
-        },
-        email:{
-          type: "jackelyn@concordia.ca",
-          required: true,
-          unique:true,
-        },
-        password:{
-          type:"123456",
-          required:true,
-        },
-        profile:{
-          type:"",
-          default:"",
-        },
-        timestamp: true
+        username: " Edi",
+        email:"edi@concordia.ca",
+        password:"12345",
+        picture:"", 
       },
       {   
-        _id:uuidv4(),
-        username: {
-          type: "jackelyn",
-          required: true,
-          unique:true,
-        },
-        email:{
-          type: "jackelyn@concordia.ca",
-          required: true,
-          unique:true,
-        },
-        password:{
-          type:"123456",
-          required:true,
-        },
-        profile:{
-          type:"",
-          default:"",
-        },
-        timestamp: true
+        username: " Jorge",
+        email:"jorge@concordia.ca",
+        password:"12345",
+        picture:"", 
       },
       {   
-        _id:uuidv4(),
-        username: {
-          type: "jackelyn",
-          required: true,
-          unique:true,
-        },
-        email:{
-          type: "jackelyn@concordia.ca",
-          required: true,
-          unique:true,
-        },
-        password:{
-          type:"123456",
-          required:true,
-        },
-        profile:{
-          type:"",
-          default:"",
-        },
-        timestamp: true
-      },
-      {   
-        _id:uuidv4(),
-        username: {
-          type: "jackelyn",
-          required: true,
-          unique:true,
-        },
-        email:{
-          type: "jackelyn@concordia.ca",
-          required: true,
-          unique:true,
-        },
-        password:{
-          type:"123456",
-          required:true,
-        },
-        profile:{
-          type:"",
-          default:"",
-        },
-        timestamp: true
+        username: " Jack",
+        email:"jack@concordia.ca",
+        password:"12345",
+        picture:"", 
       },
   ];
 
   const Blogs = [
-    { _id:uuidv4(),
-      title: {
-        type: "Microeconomics",
-        required: true,
-        unique:true,
-      },
-      description:{
-        type: "Love Microeconomics",
-        required: true,
-      },
-      photo:{
-        type:"123456",
-        required:false,
-      },
-      username:{
-        type:"",
-        required:true,
-      },
-      categories:{
-        type:[],
-        required:false,
-      },
-      timestamp: true
-
+    { 
+      title:" Let's talk about Economics",
+      description:" Economics is fun",
+      photo:"",
+      username: "Jorge",
+      categories:"Macroeconomics",
     },
-    {   _id:uuidv4(),
-        title: {
-          type: "Macroeconomics",
-          required: true,
-          unique:true,
-        },
-        description:{
-          type: "Macroeconomics rocks",
-          required: true,
-          unique:true,
-        },
-        photo:{
-          type:"123456",
-          required:false,
-        },
-        username:{
-            type:"",
-            required:true,
-          },
-          categories:{
-            type:[],
-            required:false,
-          },
-        timestamp: true
-        
+    { 
+        title:"Boring economics",
+        description:" Economics is boring",
+        photo:"",
+        username: "Edi",
+        categories:"Microeconomics",
       },
-      { _id:uuidv4(),
-        title: {
-          type: "Home Economics",
-          required: true,
-          unique:true,
-        },
-        description:{
-          type: "is is worht it?",
-          required: true,
-          unique:true,
-        },
-        photo:{
-          type:"123456",
-          required:false,
-        },
-        username:{
-            type:"",
-            required:true,
-          },
-          categories:{
-            type:[],
-            required:false,
-          },
-        timestamp: true
-      
-      },
+    
   ];
 
   const Categories = [
-    {   _id:uuidv4(),
-      title: {
-        type: "Microeconomics",
-        required:true,
-        
-      },
-      timestamp: true
+    { 
+      _id : uuidv4(),
+      title: "Macroeconomics",
+        },
+    { 
+      _id : uuidv4(),
+      title: "Microeconomics",
+        },
+    { 
+      _id : uuidv4(),
+      title: "Econometrics",
+        },
+    { 
+      _id : uuidv4(),
+      title: "Labor Economics",
+        }, 
+    { 
+      _id : uuidv4(),
+      title: "Health Economics",
+            },  
+    { 
+      _id : uuidv4(),
+      title: "Economic Development",
+            },
+    { 
+      _id : uuidv4(),
+      title: "Health Economics",
+            },
+   { 
+    _id : uuidv4(),
+     title: "Computational Economics",
+            },
+  { 
+    _id : uuidv4(),
+    title: "Other Fields",
+            },          
+            
 
-    },
-    {   _id:uuidv4(),
-        title: {
-          type: "Macroeconomics",
-          required:true,
-          
-        },
-        timestamp: true
   
-      },
-      {   _id:uuidv4(),
-        title: {
-          type: "Econometrics",
-          required:true,
-          
-        },
-        timestamp: true
-  
-      },
-      {   _id:uuidv4(),
-        title: {
-          type: "Labor Economics",
-          required:true,
-          
-        },
-        timestamp: true
-  
-      },
-      {   _id:uuidv4(),
-        title: {
-          type: "Health Economics",
-          required:true,
-          
-        },
-        timestamp: true
-  
-      },
-      {   _id:uuidv4(),
-        title: {
-          type: "Public Economics",
-          required:true,
-          
-        },
-        timestamp: true
-  
-      },
-      {   _id:uuidv4(),
-        title: {
-          type: "Economic Development",
-          required:true,
-          
-        },
-        timestamp: true
-  
-      },
 ]
   module.exports = { Users, Blogs, Categories};
   
