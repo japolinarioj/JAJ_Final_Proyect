@@ -54,13 +54,19 @@ export default createGlobalStyle`
       content: none;
   }
 
-  h1,
-h2,
-label {
+  h1{
   color: #167ef5;
   font-family: var(--font-heading);
   font-size: 40px;
   text-align: center;
+  }
+
+label {
+  color: #167ef5;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
 }
 h2{
   color: #167ef5;
@@ -77,12 +83,13 @@ h3{
 button {
   color: white;
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 25px;
   text-align: center;
   background-color: #167ef5;
   border-radius: 20px;
   cursor: pointer;
   border-style: none;
+  padding: 10px;
 }
 p,
 a,
@@ -93,10 +100,12 @@ input {
 }
 
   input {
-    font-size: 24px;
-    height: 42px;
-    border: 2px solid var(--color-orange);
-    border-radius: 4px;
-    padding: 0 12px;
+    font-size: 18px;
+    height: 30px;
+    border: 2px solid #167ef5;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px
+    
   }
 `;

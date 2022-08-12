@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const PORT = 8000;
 const {Connection} = require("./routes/Connection")
 const {SignUpUser,SignInUser}=require("./routes/userHandlers");
-const {PostBlog} = require("./routes/blogHandlers");
+const {GetBlogs,PostBlog} = require("./routes/blogHandlers");
 const { urlencoded } = require('express');
 const { GetCategories } = require('./routes/CategoriesHandlers');
 
@@ -20,10 +20,11 @@ express()
 .post('/api/signin',SignInUser)
 
 //Blogs endpoints
-
+.get('/api/get-blogs', GetBlogs)
+.post('/api/post-blog', PostBlog)
 
 //Categories endpoints
-.get('/api/categories',GetCategories)
+.get('/api/get-categories',GetCategories)
 
 
 .get("*", (req, res) => {

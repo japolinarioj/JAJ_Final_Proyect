@@ -7,10 +7,9 @@ export const CategoriesContextProvider = ({children}) =>{
     const [categories,setCategories]= useState(null);
 
     useEffect(()=>{
-        fetch('/api/categories')
+        fetch('/api/get-categories')
         .then((res)=>res.json())
         .then((data)=>{
-            console.log(data.data)
             setCategories(data.data)
         })
     },[]);

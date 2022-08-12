@@ -7,23 +7,35 @@ const options = {
     useNewUrlParser:true,
     useUnifiedTopology:true,
 };
-
-//Inserting a blog
-const PostBlog = async (req,res)=>{
-    const _id = uuidv4();
-    const {title,description,photo,username,categories,timestamp} = req.body
+//Getting blogs by categories
+const GetBlogs = async (req,res)=>{
+    console.log(req.body)
     const client = new MongoClient(MONGO_URI,options)
     try{ 
         await client.connect();
         const db = client.db("Blogs")
-        const User = await db.collection("Users").insertOne({_id,title,description,photo,username,categories,timestamp})
+        const result = await db.collection("Blogs").find().toArray();
+        res.status(200).json({status:200,data:result})           
+    } catch(err) {
+    res.status(500).json({message:"Error while getting category"})
+    }}
+
+//Inserting a blog
+const PostBlog = async (req,res)=>{
+    const _id = uuidv4();
+    const {categories,title,description,username} = req.body
+    const client = new MongoClient(MONGO_URI,options)
+    try{ 
+        await client.connect();
+        const db = client.db("Blogs")
+        const User = await db.collection("Blogs").insertOne({_id,categories,title,description,username})
         res.status(200).json({message:"blog posted"})           
     } catch(err) {
     res.status(500).json({message:"Error while posting blog"})
     }}
 
 
-module.exports={PostBlog}
+module.exports={PostBlog,GetBlogs}
 
 
     

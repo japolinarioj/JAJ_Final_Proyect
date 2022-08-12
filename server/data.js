@@ -30,18 +30,22 @@ const Users = [
 
   const Blogs = [
     { 
+      _id : uuidv4(),
+      categories:"Macroeconomics",
       title:" Let's talk about Economics",
       description:" Economics is fun",
       photo:"",
       username: "Jorge",
-      categories:"Macroeconomics",
+      
     },
     { 
+        _id : uuidv4(),
+        categories:"Microeconomics",
         title:"Boring economics",
         description:" Economics is boring",
         photo:"",
         username: "Edi",
-        categories:"Microeconomics",
+        
       },
     
   ];

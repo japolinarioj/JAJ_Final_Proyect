@@ -9,7 +9,6 @@ const options = {
 
 //Getting a category
 const GetCategories = async (req,res)=>{
-    const {title} = req.body
     const client = new MongoClient(MONGO_URI,options)
     try{ 
         await client.connect();
