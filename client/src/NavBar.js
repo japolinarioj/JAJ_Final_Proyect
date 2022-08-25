@@ -1,21 +1,33 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import styled from "styled-components";
 import Authentication from "./Authentication";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {brands, solid} from "@fortawesome/fontawesome-svg-core/import.macro";
+import Tweeter from "./assets/tweeter.png";
+import Face from "./assets/face.png";
+import Mail from "./assets/mail.png"
+
 
 const NavBar = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
     return( 
     <Wrapper>
         <NavLeft>
-            <Icon><FontAwesomeIcon icon={solid('blog')} style={{width:"30px"}}/></Icon>
-            <Icon><FontAwesomeIcon icon={solid('cubes-stacked')} style={{width:"30px"}}/></Icon>
-            <Icon><FontAwesomeIcon icon={solid('shield-halved')} style={{width:"30px"}}/></Icon>
-
+        <div>
+            <a href='https://twitter.com/?lang=en' target='_blank' rel="noopener noreferrer">
+                <SocialIcon src={Tweeter}/>
+            </a>
+        </div>
+        <div>
+            <a href='https://www.facebook.com/' target='_blank' rel="noopener noreferrer">
+                <SocialIcon src={Face}/>
+            </a>
+        </div>
+            <div>
+            <a href='https://gmail.com' target='_blank' rel="noopener noreferrer">
+                <SocialIcon src={Mail}/>
+            </a>
+        </div>
         </NavLeft>
         <NavCenter>
             <NavLink to='/'>
@@ -45,8 +57,11 @@ const NavLeft = styled.div`
 display: flex;
 flex:25%;
 `
-
-
+const SocialIcon = styled.img`
+width: 50px;
+margin:5px 30px;
+border-radius: 10px;
+`
 const NavCenter = styled.div`
 display: flex;
 justify-content: space-evenly;

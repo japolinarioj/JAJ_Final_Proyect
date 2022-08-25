@@ -7,6 +7,7 @@ import BlogList from "./BlogList";
 import About from "./About";
 import CreatePost from "./CreatePost";
 import BlogDetail from "./BlogDetail";
+import Footer from "./Footer";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/blogs/:title" element={<BlogDetail/>}/>
           <Route path="">404: Oops!</Route>
       </Routes>
+      <Footer/>
     </Router>
   );
 };

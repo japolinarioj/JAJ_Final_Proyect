@@ -9,10 +9,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Auth0Provider
   domain="dev-rw1fts48.us.auth0.com"
-  clientId="EZGWj3ZIOPZo8n3gZStEEf4JR1kjlfsd"
+  clientId="SQLwyj39MLXIcgb0nkMsUm99CLfboFQ2"
   redirectUri={window.location.origin}
-    // audience="https://dev-rw1fts48.us.auth0.com/api/v2/"
-    // scope="read:current_user update:current_user_metadata"
+    audience="https://dev-rw1fts48.us.auth0.com/api/v2/"
+    scope="read:current_user update:current_user_metadata"
   >
     <CategoriesContextProvider>
     <BlogsContextProvider>
