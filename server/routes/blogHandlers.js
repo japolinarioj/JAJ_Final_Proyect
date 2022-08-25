@@ -9,13 +9,17 @@ const options = {
 };
 //Getting blogs by categories
 const GetBlogs = async (req,res)=>{
-    console.log(req.body)
+    const {category} = req.params
     const client = new MongoClient(MONGO_URI,options)
     try{ 
         await client.connect();
-        const db = client.db("Blogs")
-        const result = await db.collection("Blogs").find().toArray();
-        res.status(200).json({status:200,data:result})           
+        const db = client.db("Econtalks")
+        if(category==='All'){
+            const result = await db.collection("Blogs").find().toArray()
+            res.status(200).json({status:200,data:result})           
+        } else {
+            const result = await db.collection("Blogs").find({categories:category}).toArray()
+            res.status(200).json({status:200,data:result})}          
     } catch(err) {
     res.status(500).json({message:"Error while getting category"})
     }}
@@ -23,19 +27,50 @@ const GetBlogs = async (req,res)=>{
 //Inserting a blog
 const PostBlog = async (req,res)=>{
     const _id = uuidv4();
+    const date = new Date();
+    const timeStamp = new Intl.DateTimeFormat('en-US',{dateStyle:'long'}).format(date);
     const {categories,title,description,username} = req.body
     const client = new MongoClient(MONGO_URI,options)
     try{ 
         await client.connect();
-        const db = client.db("Blogs")
-        const User = await db.collection("Blogs").insertOne({_id,categories,title,description,username})
+        const db = client.db("Econtalks")
+        await db.collection("Blogs").insertOne({_id,categories,title,description,username,timeStamp})
         res.status(200).json({message:"blog posted"})           
     } catch(err) {
     res.status(500).json({message:"Error while posting blog"})
     }}
 
-
-module.exports={PostBlog,GetBlogs}
+const DeleteBlog = async(req,res)=>{
+    const {title,username} = req.params
+    console.log(req.params)
+    const client =new MongoClient(MONGO_URI,options)
+    try{
+        await client.connect();
+        const db = client.db("Econtalks")
+        let result= await db.collection("Blogs").findOne({title:title,username:username })
+        if(result){
+            console.log(result)
+            await db.collection("Blogs").deleteOne({title:title,username:username})
+        }
+    } catch(err) {
+        res.status(500).json({message:"Error while deleting blog"})
+    }
+}
+const UpdateBlog = async(req,res)=>{
+    const {categories,title,description,username,timeStamp} = req.body
+    const client =new MongoClient(MONGO_URI,options)
+    try{
+        await client.connect();
+        const db = client.db("Econtalks")
+        let result= await db.collection("Blogs").findOne({title:title,username:username })
+        if(result){
+            console.log(result)
+        }
+    } catch(err) {
+        res.status(500).json({message:"Error while deleting blog"})
+    }
+}
+module.exports={PostBlog,GetBlogs, DeleteBlog, UpdateBlog}
 
 
     

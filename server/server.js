@@ -1,18 +1,19 @@
 "use strict";
+const path = require('path');
+
 const express = require('express');
 const morgan = require('morgan');
 const PORT = 8000;
 const {Connection} = require("./routes/Connection")
 const {SignUpUser,SignInUser}=require("./routes/userHandlers");
-const {GetBlogs,PostBlog} = require("./routes/blogHandlers");
-const { urlencoded } = require('express');
+const {GetBlogs,PostBlog,DeleteBlog, UpdateBlog} = require("./routes/blogHandlers");
 const { GetCategories } = require('./routes/CategoriesHandlers');
 
 express()
 .use(morgan("tiny"))
 .use(express.json())
 .use(express.urlencoded({extended:true}))
-.use(express.static('public'))
+.use('/assets', express.static(path.join(__dirname, 'assets')))
 
 //Users endpoints
 .get('/', (req, res) => {res.status(200).json({status:200 , message:'Hello World!'})})
@@ -20,8 +21,10 @@ express()
 .post('/api/signin',SignInUser)
 
 //Blogs endpoints
-.get('/api/get-blogs', GetBlogs)
+.get('/api/get-blogs/:category', GetBlogs)
 .post('/api/post-blog', PostBlog)
+.put('/api/put-blog',UpdateBlog)
+.delete('/api/delete-blog/:title/:username', DeleteBlog)
 
 //Categories endpoints
 .get('/api/get-categories',GetCategories)

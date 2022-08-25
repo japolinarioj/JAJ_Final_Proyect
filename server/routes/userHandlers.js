@@ -15,7 +15,7 @@ const SignUpUser = async (req,res)=>{
     const client = new MongoClient(MONGO_URI,options)
     try{ 
         await client.connect();
-        const db = client.db("Blogs")
+        const db = client.db("Econtalks")
         const User = await db.collection("Users").insertOne({_id,username,email,password,picture,timestamp})
         res.status(200).json({message:"signup successful"})           
     } catch(err) {
@@ -30,7 +30,7 @@ const SignInUser = async (req,res)=>{
     const client= new MongoClient(MONGO_URI,options)
     try{
         await client.connect();
-        const db = client.db("Blogs")
+        const db = client.db("Econtalks")
         const result =await db.collection("Users").findOne({currentUser});
         result
         ? res.status(200).json({

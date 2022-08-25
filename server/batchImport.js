@@ -14,10 +14,9 @@ const batchImport = async () =>{
 
     try {
         await client.connect();
-        const db = client.db("Blogs");
-        const users = await db.collection("Users").insertMany(Users);
-        const blogs = await db.collection("Blogs").insertMany(Blogs);
-        const categories = await db.collection("Categories").insertMany(Categories);
+        const db = client.db("Econtalks");
+        await db.collection("Users").insertMany(Users);
+        await db.collection("Blogs").insertMany(Blogs);
 
     } catch (err) {
         console.log(err.stack)

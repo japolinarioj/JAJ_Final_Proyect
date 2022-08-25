@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { useAuth0 } from '@auth0/auth0-react';
-import BlogList from './BlogList';
+import { BlogsContext } from './Context/BlogsContext';
 
-const CreatePost = () => {
+const DeletePost = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
+    const {blogs, setBlogs} = useContext(BlogsContext)
+    console.log(blogs)
     console.log (user)
     const [data, setData]=useState(
         {categories:"",
          title:"",
          description:"",
+         username:""
         })
 
     const changeHandle =(e)=>{
@@ -97,4 +98,4 @@ border-style: none;
 padding: 10px;
 `
 
-export default CreatePost;
+export default DeletePost;

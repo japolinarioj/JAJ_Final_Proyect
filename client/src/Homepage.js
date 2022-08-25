@@ -17,14 +17,15 @@ const Homepage = () => {
             <CategoryWrapper>
             {categories&&
                 categories.map((el)=>{
-                    console.log(el)
                 return(
                         <CategoryBox onClick={(ev)=>{
                             ev.preventDefault();
                             navigation(`/blogs/${el.title}`)
                         }}>
                             <CategoryTitle>{el.title}</CategoryTitle>
-                            <BlogBox></BlogBox>
+                            <CategoryImage>
+                                <Image src={el.url}/>
+                            </CategoryImage>
                         </CategoryBox>
                  )
                 })}
@@ -41,14 +42,36 @@ flex-wrap: wrap;
 `
 const CategoryBox = styled.div`
 flex:30%;
-height: 200px;
-border: 3px dashed #167ef5;
+height: 210px;
+border: 2px solid lightgray;
 margin:20px;
+border-radius: 10px;
 cursor: pointer;
+:hover+{
+    
+}
 `
 const CategoryTitle = styled.h3`
+:hover{
+    font-size: x-large;
+}
 `
-const BlogBox = styled.div`
+const CategoryImage = styled.div`
 display: flex;
+justify-content: center;
+margin-top: 15px;
+height: 160px;
+
+`
+const Image = styled.img`
+width:250px;
+object-fit: cover;
+z-index: -1;
+opacity: 1;
+border-radius:10px;
+:hover{
+    opacity: 0.6;
+}
+
 `
 export default Homepage;
