@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const PORT = 8000;
 const {Connection} = require("./routes/Connection")
 const {SignUpUser,SignInUser}=require("./routes/userHandlers");
-const {GetBlogs,PostBlog,DeleteBlog, UpdateBlog} = require("./routes/blogHandlers");
+const {GetBlogsByCategory,PostBlog,DeleteBlog, UpdateBlog, GetBlogDetails, GetBlogs} = require("./routes/blogHandlers");
 const { GetCategories } = require('./routes/CategoriesHandlers');
 
 express()
@@ -21,7 +21,9 @@ express()
 .post('/api/signin',SignInUser)
 
 //Blogs endpoints
-.get('/api/get-blogs/:category', GetBlogs)
+.get('/api/blogs',GetBlogs)
+.get('/api/blogs/:category', GetBlogsByCategory)
+.get('/api/blogs/:categories/:_id', GetBlogDetails)
 .post('/api/post-blog', PostBlog)
 .put('/api/put-blog',UpdateBlog)
 .delete('/api/delete-blog/:title/:username', DeleteBlog)

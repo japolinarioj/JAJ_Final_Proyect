@@ -7,8 +7,23 @@ const options = {
     useNewUrlParser:true,
     useUnifiedTopology:true,
 };
-//Getting blogs by categories
+//Get all blogs
 const GetBlogs = async (req,res)=>{
+    const {category} = req.params
+    const client = new MongoClient(MONGO_URI,options)
+    try{ 
+        await client.connect();
+        const db = client.db("Econtalks")
+            const result = await db.collection("Blogs").find().toArray()
+            res.status(200).json({status:200,data:result})           
+             
+    } catch(err) {
+    res.status(500).json({message:"Error while getting blogs"})
+    }}
+
+
+//Getting blogs by categories
+const GetBlogsByCategory = async (req,res)=>{
     const {category} = req.params
     const client = new MongoClient(MONGO_URI,options)
     try{ 
@@ -23,6 +38,23 @@ const GetBlogs = async (req,res)=>{
     } catch(err) {
     res.status(500).json({message:"Error while getting category"})
     }}
+
+//Getting blogs by _id
+const GetBlogDetails = async (req,res)=>{
+    const {_id} = req.params
+    console.log(req.params)
+    const client = new MongoClient(MONGO_URI,options)
+    try{ 
+        await client.connect();
+        const db = client.db("Econtalks")
+        const result = await db.collection("Blogs").find({_id:_id})
+            res.status(200).json({status:200,data:result})
+            console.log(result)       
+    } catch(err) {
+    res.status(500).json({message:"Error while getting category"})
+    }}
+
+
 
 //Inserting a blog
 const PostBlog = async (req,res)=>{
@@ -70,7 +102,7 @@ const UpdateBlog = async(req,res)=>{
         res.status(500).json({message:"Error while deleting blog"})
     }
 }
-module.exports={PostBlog,GetBlogs, DeleteBlog, UpdateBlog}
+module.exports={PostBlog,GetBlogs,GetBlogsByCategory, DeleteBlog, UpdateBlog, GetBlogDetails}
 
 
     

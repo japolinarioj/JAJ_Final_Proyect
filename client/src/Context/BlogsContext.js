@@ -7,13 +7,13 @@ export const BlogsContextProvider = ({children}) =>{
     const [blogs,setBlogs]= useState(null);
 
     useEffect(()=>{
-        fetch('/api/get-blogs')
+        fetch('/api/blogs')
         .then((res)=>res.json())
         .then((data)=>{
-            console.log(data.data)
             setBlogs(data.data)
         })
     },[]);
+    console.log(blogs)
 
     return (
         <BlogsContext.Provider

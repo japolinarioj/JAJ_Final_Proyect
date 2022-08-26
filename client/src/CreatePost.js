@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useAuth0 } from '@auth0/auth0-react';
-import BlogList from './BlogList';
 
 const CreatePost = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -80,6 +79,7 @@ flex:40%;
 margin:80px;
 padding: 30px;
 box-shadow: 2px 0px 13px 10px #68ACFF;
+max-height: 800px;
 `
 const User = styled.p`
 padding:10px;
@@ -88,7 +88,7 @@ const Button =styled.button`
 margin:20px 200px;
 color: white;
 font-family: var(--font-heading);
-font-size: 15px;
+font-size: 30px;
 text-align: center;
 background-color: #167ef5;
 border-radius: 20px;

@@ -7,16 +7,17 @@ import CreatePost from './CreatePost';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro"
 import useDocumentTitle from './useDocumentTitle';
+import { Link } from 'react-router-dom';
 
 
 const BlogList = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
     const {blogs,setBlogs}=useContext(BlogsContext);
     const [search, setSearch] = useState("");
-
     const {categories} = useParams();
+
     useEffect(()=>{
-        fetch(`/api/get-blogs/${categories}`)
+        fetch(`/api/blogs/${categories}`)
         .then((res)=>res.json())
         .then((data)=>{
             console.log(data.data)
@@ -24,7 +25,7 @@ const BlogList = () => {
         })
     },[]);
 
-    
+    console.log(blogs)
     useDocumentTitle(`Econtalks/${categories}`, `Econtalks_Final_Project`)
 
     const DeleteBlog = (title) =>{
@@ -49,7 +50,9 @@ const BlogList = () => {
                 
                     return(
                     <Blog>
-                        <BlogTitle>{el.title}</BlogTitle>
+                        <BlogLink to={`/blogs/${categories}/${el._id}`} categories={categories}>
+                            <BlogTitle>{el.title}</BlogTitle>
+                        </BlogLink>
                         <BlogDescription>{el.description}</BlogDescription>
                         <BlogFooter>
                             <Icon><FontAwesomeIcon icon={solid('thumbs-up')}style={{width:"30px"}}/></Icon>
@@ -61,10 +64,10 @@ const BlogList = () => {
                             <Icon onClick={()=>{DeleteBlog(el.title)}}><FontAwesomeIcon icon={solid('trash-can')}/></Icon>
                             <Icon><FontAwesomeIcon icon={solid('pen')}/></Icon>
                             </>}
-
-
                         </BlogFooter>
+                        
                     </Blog>
+                    
                     )})
                     } 
                 </BlogsList>
@@ -87,12 +90,14 @@ const BlogList = () => {
                 
                     return(
                     <Blog>
-                        <BlogTitle>{el.title}</BlogTitle>
+                        <BlogLink to={`/blogs/${categories}/${el._id}`}>
+                            <BlogTitle>{el.title}</BlogTitle>
+                        </BlogLink>
                         <BlogDescription>{el.description}</BlogDescription>
                         <BlogFooter>
                             <FontAwesomeIcon icon={solid('thumbs-up')}/>
                             <FontAwesomeIcon icon={solid('thumbs-down')}/>
-                            <BlogDate>Posted on: {el.timeStamp}</BlogDate>
+                            <BlogDate>Posted on: {el.timeStamp} </BlogDate>
                             <FontAwesomeIcon icon={solid('reply')}/>
                         </BlogFooter>
                     </Blog>
@@ -110,6 +115,9 @@ const Wrapper = styled.div`
 display: flex;
 flex-direction:column;
 margin: 40px auto auto 40px;
+`
+const BlogLink = styled(Link)`
+text-decoration: none;
 `
 const SearchBox = styled.div`
 `

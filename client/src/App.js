@@ -6,10 +6,14 @@ import NavBar from "./NavBar";
 import BlogList from "./BlogList";
 import About from "./About";
 import CreatePost from "./CreatePost";
-import BlogDetail from "./BlogDetail";
+import BlogDetails from "./BlogDetails";
 import Footer from "./Footer";
+import useDocumentTitle from './useDocumentTitle';
+
 
 const App = () => {
+  useDocumentTitle(`Econtalks`, `Econtalks_Final_Project`)
+
   return (
     <Router>
       <GlobalStyles/>
@@ -20,7 +24,8 @@ const App = () => {
           <Route path="/confirmed" element/>
           <Route path="/About" element={<About/>}/>
           <Route path="/CreatePost" element={<CreatePost/>}/>
-          <Route path="/blogs/:title" element={<BlogDetail/>}/>
+          {/* <Route path="/blogs/:title" element={<BlogDetails/>}/> */}
+          <Route path="/blogs/categories/:_id" element={<BlogDetails/>}/>
           <Route path="">404: Oops!</Route>
       </Routes>
       <Footer/>
