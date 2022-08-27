@@ -14,7 +14,7 @@ const BlogList = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
     const [blogs,setBlogs] = useState ("");
     const {categories} = useParams();
-
+    console.log(user)
     useEffect(()=>{
         fetch(`/api/blogs/${categories}`)
         .then((res)=>res.json())
@@ -28,26 +28,23 @@ const BlogList = () => {
     useDocumentTitle(`Econtalks/${categories}`, `Econtalks_Final_Project`)
 
     const DeleteBlog = (title) =>{
-        fetch(`/api/delete-blog/${title}/${user.username}`)
-        .then((res)=>res.json())
-        .then((data)=>{
-            window.alert(data)
-        })
+        fetch(`/api/delete-blog/${title}/${user.nickname}`,{
+            method:"DELETE"})
+            .then((res) => res.json())
+            .then((data)=>{
+                window.alert("blog deleted")
+            })
     }
 
     return (
         isAuthenticated
         ?(<Wrapper>
-            {/* <SearchBox>
-                <label>Search</label>
-                <SearchInput type="text" 
-                placeholder="Enter your search here" onChange={(e)=> {setSearch(e.target.value)}}></SearchInput>
-            </SearchBox> */}
             <Search/>
             <BlogsBox>
                 <BlogsList>
-                {blogs&&
-                blogs.map((el)=>{
+                {blogs && blogs
+                .sort((a,b)=>a.timeStamp<b.timeStamp ? 1 :0)
+                .map((el)=>{
                 
                     return(
                     <Blog>
@@ -80,10 +77,6 @@ const BlogList = () => {
         </Wrapper>
         )
         :(<Wrapper>
-            {/* <SearchBox>
-                <label>Search</label>
-                <SearchInput type="text" onChange={(e)=> {setSearch(e.target.value)}}></SearchInput>
-            </SearchBox> */}
             <Search/>
             <BlogsBox>
                 <BlogsList>
@@ -162,6 +155,7 @@ color:grey;
 `
 const BlogFooter = styled.div`
 display: flex;
+justify-content: space-evenly;
 padding: 20px;
 `
 const Icon = styled.div`

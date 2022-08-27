@@ -41,14 +41,12 @@ const GetBlogsByCategory = async (req,res)=>{
 //Getting blogs by categories and _id
 const GetBlogDetails = async (req,res)=>{
     const {categories,title}= req.params
-    console.log(req.params)
     const client = new MongoClient(MONGO_URI,options)
     try{ 
         await client.connect();
         const db = client.db("Econtalks")
         const result = await db.collection("Blogs").findOne({categories:categories, title:title})
             res.status(200).json({status:200, data:result})
-            console.log(result)       
     } catch(err) {
     res.status(500).json({message:"Error while getting category"})
     }}

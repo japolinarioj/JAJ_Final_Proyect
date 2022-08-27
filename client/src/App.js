@@ -24,7 +24,6 @@ const App = () => {
           <Route path="/confirmed" element/>
           <Route path="/About" element={<About/>}/>
           <Route path="/CreatePost" element={<CreatePost/>}/>
-          {/* <Route path="/blogs/:title" element={<BlogDetails/>}/> */}
           <Route path="/blogs/:categories/:title" element={<BlogDetails/>}/>
           <Route path="">404: Oops!</Route>
       </Routes>
