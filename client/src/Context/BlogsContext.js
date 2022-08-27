@@ -13,7 +13,6 @@ export const BlogsContextProvider = ({children}) =>{
             setBlogs(data.data)
         })
     },[]);
-    console.log(blogs)
 
     return (
         <BlogsContext.Provider

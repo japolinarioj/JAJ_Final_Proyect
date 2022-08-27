@@ -9,7 +9,6 @@ const options = {
 };
 //Get all blogs
 const GetBlogs = async (req,res)=>{
-    const {category} = req.params
     const client = new MongoClient(MONGO_URI,options)
     try{ 
         await client.connect();
@@ -39,16 +38,16 @@ const GetBlogsByCategory = async (req,res)=>{
     res.status(500).json({message:"Error while getting category"})
     }}
 
-//Getting blogs by _id
+//Getting blogs by categories and _id
 const GetBlogDetails = async (req,res)=>{
-    const {_id} = req.params
+    const {categories,title}= req.params
     console.log(req.params)
     const client = new MongoClient(MONGO_URI,options)
     try{ 
         await client.connect();
         const db = client.db("Econtalks")
-        const result = await db.collection("Blogs").find({_id:_id})
-            res.status(200).json({status:200,data:result})
+        const result = await db.collection("Blogs").findOne({categories:categories, title:title})
+            res.status(200).json({status:200, data:result})
             console.log(result)       
     } catch(err) {
     res.status(500).json({message:"Error while getting category"})

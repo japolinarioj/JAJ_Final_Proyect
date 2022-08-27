@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { BlogsContext } from './Context/BlogsContext';
@@ -8,12 +8,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro"
 import useDocumentTitle from './useDocumentTitle';
 import { Link } from 'react-router-dom';
-
+import Search from './Search';
 
 const BlogList = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
-    const {blogs,setBlogs}=useContext(BlogsContext);
-    const [search, setSearch] = useState("");
+    const [blogs,setBlogs] = useState ("");
     const {categories} = useParams();
 
     useEffect(()=>{
@@ -29,7 +28,7 @@ const BlogList = () => {
     useDocumentTitle(`Econtalks/${categories}`, `Econtalks_Final_Project`)
 
     const DeleteBlog = (title) =>{
-        fetch(`/api/delete-blog/${title}/${user.nickname}`)
+        fetch(`/api/delete-blog/${title}/${user.username}`)
         .then((res)=>res.json())
         .then((data)=>{
             window.alert(data)
@@ -39,10 +38,12 @@ const BlogList = () => {
     return (
         isAuthenticated
         ?(<Wrapper>
-            <SearchBox>
+            {/* <SearchBox>
                 <label>Search</label>
-                <SearchInput type="text" onChange={(e)=> {setSearch(e.target.value)}}></SearchInput>
-            </SearchBox>
+                <SearchInput type="text" 
+                placeholder="Enter your search here" onChange={(e)=> {setSearch(e.target.value)}}></SearchInput>
+            </SearchBox> */}
+            <Search/>
             <BlogsBox>
                 <BlogsList>
                 {blogs&&
@@ -50,7 +51,7 @@ const BlogList = () => {
                 
                     return(
                     <Blog>
-                        <BlogLink to={`/blogs/${categories}/${el._id}`} categories={categories}>
+                        <BlogLink to={`/blogs/${categories}/${el.title}`}>
                             <BlogTitle>{el.title}</BlogTitle>
                         </BlogLink>
                         <BlogDescription>{el.description}</BlogDescription>
@@ -79,10 +80,11 @@ const BlogList = () => {
         </Wrapper>
         )
         :(<Wrapper>
-            <SearchBox>
+            {/* <SearchBox>
                 <label>Search</label>
                 <SearchInput type="text" onChange={(e)=> {setSearch(e.target.value)}}></SearchInput>
-            </SearchBox>
+            </SearchBox> */}
+            <Search/>
             <BlogsBox>
                 <BlogsList>
                 {blogs&&
@@ -90,7 +92,7 @@ const BlogList = () => {
                 
                     return(
                     <Blog>
-                        <BlogLink to={`/blogs/${categories}/${el._id}`}>
+                        <BlogLink to={`/blogs/${categories}/${el.title}`}>
                             <BlogTitle>{el.title}</BlogTitle>
                         </BlogLink>
                         <BlogDescription>{el.description}</BlogDescription>

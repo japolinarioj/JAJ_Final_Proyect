@@ -1,29 +1,32 @@
-import React, {  useEffect, useContext} from 'react';
+import React, {  useEffect, useContext, useState} from 'react';
 import { useParams } from 'react-router-dom';
-import { BlogsContext } from './Context/BlogsContext';
 
 const BlogDetails = () => {
- const {_id} = useParams();
+ const [blogDetails,setBlogDetails] = useState({
+    _id:"",
+    categories:"",
+    title:"",
+    description:"",
+    username:"",
+    timeStamp:"",
+ })
+ const {categories, title} = useParams();
 
- const [blogDetails, setBlogDetails] = useContext(BlogsContext)
- console.log()
- 
- useEffect(()=>{
-    fetch(`/api/get-blogs/category/${_id}`)
-    .then((res)=>res.json())
-    .then((data)=>{
-        console.log(data)
-        setBlogDetails(data)
-        console.log(blogDetails)
-    })
-},[]);
+    useEffect(()=>{
+        fetch(`/api/blogs/${categories}/${title}`)
+        .then((res)=>res.json())
+        .then((data)=>{
+            console.log(data.data)
+            setBlogDetails(data.data)
+        })
+    },[]);
+
 console.log(blogDetails)
-
-
      return (
-        <div>
+
+        <h1>
            Blog Details 
-        </div>
+        </h1>
     );
 }
 

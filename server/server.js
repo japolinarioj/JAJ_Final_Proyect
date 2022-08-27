@@ -23,7 +23,7 @@ express()
 //Blogs endpoints
 .get('/api/blogs',GetBlogs)
 .get('/api/blogs/:category', GetBlogsByCategory)
-.get('/api/blogs/:categories/:_id', GetBlogDetails)
+.get('/api/blogs/:categories/:title', GetBlogDetails)
 .post('/api/post-blog', PostBlog)
 .put('/api/put-blog',UpdateBlog)
 .delete('/api/delete-blog/:title/:username', DeleteBlog)
