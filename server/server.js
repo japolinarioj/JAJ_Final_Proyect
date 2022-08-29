@@ -5,7 +5,7 @@ const express = require('express');
 const morgan = require('morgan');
 const PORT = 8000;
 const {Connection} = require("./routes/Connection")
-const {SignUpUser,SignInUser}=require("./routes/userHandlers");
+const {GetUsers, SignUpUser,SignInUser, GetBlogsByUser}=require("./routes/userHandlers");
 const {GetBlogsByCategory,PostBlog,DeleteBlog, UpdateBlog, GetBlogDetails, GetBlogs} = require("./routes/blogHandlers");
 const { GetCategories } = require('./routes/CategoriesHandlers');
 
@@ -16,7 +16,8 @@ express()
 .use('/assets', express.static(path.join(__dirname, 'assets')))
 
 //Users endpoints
-.get('/', (req, res) => {res.status(200).json({status:200 , message:'Hello World!'})})
+.get('/api/users',GetUsers)
+.get('/api/users/:username',GetBlogsByUser)
 .post('/api/signup',SignUpUser)
 .post('/api/signin',SignInUser)
 
@@ -25,7 +26,7 @@ express()
 .get('/api/blogs/:category', GetBlogsByCategory)
 .get('/api/blogs/:categories/:title', GetBlogDetails)
 .post('/api/post-blog', PostBlog)
-.put('/api/put-blog',UpdateBlog)
+.put('/api/put-blog/:title/:username',UpdateBlog)
 .delete('/api/delete-blog/:title/:username', DeleteBlog)
 
 //Categories endpoints

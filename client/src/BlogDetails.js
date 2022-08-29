@@ -4,8 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro"
-
-
+import UpdateForm from './UpdateForm';
 
 const BlogDetails = () => {
 const { user, isAuthenticated, isLoading } = useAuth0();
@@ -17,9 +16,14 @@ const { user, isAuthenticated, isLoading } = useAuth0();
     username:"",
     timeStamp:"",
  })
+ 
+ const [isShown, setIsShown] = useState(false)
  const {categories, title} = useParams();
 
-    useEffect(()=>{
+ const handleClick = (e) =>{
+    setIsShown(true)
+ }   
+ useEffect(()=>{
         fetch(`/api/blogs/${categories}/${title}`)
         .then((res)=>res.json())
         .then((data)=>{
@@ -35,10 +39,7 @@ const DeleteBlog = (title) =>{
     .then((data)=>{
         window.alert("blog deleted")
     })
-
 }
-
-console.log(blogDetails)
      return (
         <Wrapper>
             {blogDetails &&
@@ -52,27 +53,33 @@ console.log(blogDetails)
                 <BlogDate>Posted on: {blogDetails.timeStamp} </BlogDate>
                 <User> Written by: {blogDetails.username.charAt().toUpperCase()}{blogDetails.username.slice(1)}</User>
                 <BlogFooter>
-                    <Icon><FontAwesomeIcon icon={solid('thumbs-up')}style={{width:"30px"}}/></Icon>
-                    <Icon><FontAwesomeIcon icon={solid('thumbs-down')}/></Icon>
+                    {/* <Icon><FontAwesomeIcon icon={solid('thumbs-up')}style={{width:"30px"}}/></Icon>
+                    <Icon><FontAwesomeIcon icon={solid('thumbs-down')}/></Icon> */}
                     <Icon><FontAwesomeIcon icon={solid('reply')}/></Icon>
                     {isAuthenticated &&
                     user.nickname===blogDetails.username &&
                     <>
                     <Icon onClick={()=>{DeleteBlog(blogDetails.title)}}><FontAwesomeIcon icon={solid('trash-can')}/></Icon>
-                    <Icon><FontAwesomeIcon icon={solid('pen')}/></Icon>
+                    <Icon onClick={handleClick}><FontAwesomeIcon icon={solid('pen')}/></Icon>
                     </>}
                 </BlogFooter>
-            </BlogWrapper>}
-
+            </BlogWrapper>
+            }
+            {isShown && (
+                        <UpdateForm {...{blogDetails, setBlogDetails}}/>
+                    )}
         </Wrapper>
     );
 }
 
 const Wrapper=styled.div`
 justify-content: center;
+display: flex;
+justify-items: center;
+align-content: space-between;
 `
 const BlogWrapper = styled.div`
-margin: 50px 400px;
+margin: 80px 200px ;
 display: flex;
 flex-direction: column;
 justify-content: center;

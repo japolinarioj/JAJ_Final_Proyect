@@ -9,6 +9,7 @@ import CreatePost from "./CreatePost";
 import BlogDetails from "./BlogDetails";
 import Footer from "./Footer";
 import useDocumentTitle from './useDocumentTitle';
+import Profile from './Profile';
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/About" element={<About/>}/>
           <Route path="/CreatePost" element={<CreatePost/>}/>
           <Route path="/blogs/:categories/:title" element={<BlogDetails/>}/>
+          <Route path="/users/:username" element={<Profile />}/>
           <Route path="">404: Oops!</Route>
       </Routes>
       <Footer/>

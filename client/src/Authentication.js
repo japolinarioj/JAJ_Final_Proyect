@@ -14,10 +14,12 @@ const Authentication = () =>{
         ?
         <>
         
-       <NavLink to='/CreatePost'>
+       <NavLink to={'/CreatePost'}>
             <h2>Create Post</h2>
         </NavLink>
-        <Button>{user.nickname.charAt().toUpperCase()}</Button>
+        <NavLink to={`/users/${user.nickname}`}>
+            <Button>{user.nickname.charAt().toUpperCase()}</Button>
+        </NavLink>
         <image src={user.picture}/>
         <SignOutButton/>
         </>

@@ -4,6 +4,7 @@ import App from './App';
 import  {Auth0Provider}from "@auth0/auth0-react"
 import { CategoriesContextProvider } from './Context/CategoriesContext';
 import { BlogsContextProvider } from './Context/BlogsContext';
+import {UsersContextProvider} from './Context/UsersContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,13 +15,15 @@ root.render(
     audience="https://dev-rw1fts48.us.auth0.com/api/v2/"
     scope="read:current_user update:current_user_metadata"
   >
-    <CategoriesContextProvider>
-    <BlogsContextProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-      </BlogsContextProvider>
-    </CategoriesContextProvider>
-  </Auth0Provider>
+      <CategoriesContextProvider>
+        <UsersContextProvider>
+          <BlogsContextProvider>
+            <React.StrictMode>
+              <App />
+            </React.StrictMode>
+          </BlogsContextProvider>
+        </UsersContextProvider>
+      </CategoriesContextProvider>
+    </Auth0Provider>
 );
 

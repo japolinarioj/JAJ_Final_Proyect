@@ -1,14 +1,14 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { BlogsContext } from './Context/BlogsContext';
 import CreatePost from './CreatePost';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {solid} from "@fortawesome/fontawesome-svg-core/import.macro"
 import useDocumentTitle from './useDocumentTitle';
 import { Link } from 'react-router-dom';
 import Search from './Search';
+import Loading from "./Loading";
 
 const BlogList = () => {
     const { user, isAuthenticated, isLoading } = useAuth0();
@@ -35,7 +35,11 @@ const BlogList = () => {
                 window.alert("blog deleted")
             })
     }
-
+    if (isLoading) {
+        return (
+            <Loading/>
+        );
+      }
     return (
         isAuthenticated
         ?(<Wrapper>
@@ -43,7 +47,6 @@ const BlogList = () => {
             <BlogsBox>
                 <BlogsList>
                 {blogs && blogs
-                .sort((a,b)=>a.timeStamp<b.timeStamp ? 1 :0)
                 .map((el)=>{
                 
                     return(
@@ -53,8 +56,8 @@ const BlogList = () => {
                         </BlogLink>
                         <BlogDescription>{el.description}</BlogDescription>
                         <BlogFooter>
-                            <Icon><FontAwesomeIcon icon={solid('thumbs-up')}style={{width:"30px"}}/></Icon>
-                            <Icon><FontAwesomeIcon icon={solid('thumbs-down')}/></Icon>
+                            {/* <Icon><FontAwesomeIcon icon={solid('thumbs-up')}style={{width:"30px"}}/></Icon>
+                            <Icon><FontAwesomeIcon icon={solid('thumbs-down')}/></Icon> */}
                             <Icon><BlogDate>Posted on: {el.timeStamp}</BlogDate></Icon>
                             <Icon><FontAwesomeIcon icon={solid('reply')}/></Icon>
                             {user.nickname===el.username &&
@@ -63,14 +66,11 @@ const BlogList = () => {
                             <Icon><FontAwesomeIcon icon={solid('pen')}/></Icon>
                             </>}
                         </BlogFooter>
-                        
                     </Blog>
-                    
                     )})
                     } 
                 </BlogsList>
                 <CreatePost/>
-
             </BlogsBox>
             
             

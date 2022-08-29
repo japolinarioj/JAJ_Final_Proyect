@@ -1,52 +1,49 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-const CreatePost = () => {
+const UpdateForm = (props) => {
     const { user, isAuthenticated, isLoading } = useAuth0();
+    const {title} = useParams()
     console.log (user)
+    console.log(props)
     const [data, setData]=useState(
         {categories:"",
          title:"",
          description:"",
         })
-
     const changeHandle =(e)=>{
         const newdata ={...data, username:user.nickname}
         newdata[e.target.name] = e.target.value
         setData(newdata)
     }
-    const clickHandle = (e) =>{
-        e.preventDefault();
-        console.log(data)
-        fetch('/api/post-blog',{
-            method:"POST",
-            body:JSON.stringify(data),
+    const UpdateBlog = () =>{
+        fetch(`/api/put-blog/${title}/${user.nickname}`,{
+            method:"PUT",
             headers: {
             Accept: "application/json",
-            "Content-Type": "application/json",
-        },
+            "Content-Type": "application/json"},
+            body:JSON.stringify(data),
+
         })
         .then((res)=>res.json())
-        .then((info)=> {
-            console.log(info)
-            setData({categories:"",
-            title:"",
-            description:"",
-            username:"",
-           })
-        })
-         }
-    
+            .then((data)=> {
+                console.log(data.data)
+                setData(data.data)
+            })
+    }
+    console.log(data)
     return (
     isAuthenticated &&
         <Wrapper>
             <Blank>
             </Blank>
-            <Form onSubmit={(e)=>{clickHandle(e)}}>
-                <CreateTitle>Create your post</CreateTitle>
+            <Form onSubmit={(e)=>{UpdateBlog(e)}}>
+                <CreateTitle>Update your post</CreateTitle>
                 <label htmlFor='categories'>Category</label>
                 <input onChange={(e)=>{changeHandle(e)}} value={data.categories} type="text" name="categories" placeholder="Category"></input>
                 <label htmlFor='title'>Title</label>
@@ -55,7 +52,7 @@ const CreatePost = () => {
                     type="text" name="description" placeholder="Your post"
                     style={{height:'300px', border:'2px solid #167ef5', borderRadius:'10px', margin:'10px'}}></textarea>
                 <User> Written by: {user.nickname.charAt().toUpperCase()}{user.nickname.slice(1)}</User>
-                <Button type='submit'>Submit your post</Button>
+                <Button type='submit'>Update your post</Button>
 
             </Form>   
         </Wrapper>
@@ -97,4 +94,4 @@ border-style: none;
 padding: 10px;
 `
 
-export default CreatePost;
+export default UpdateForm;

@@ -7,7 +7,34 @@ const options = {
     useNewUrlParser:true,
     useUnifiedTopology:true,
 };
+// Get all users
+const GetUsers = async (req,res)=>{
+    const client = new MongoClient(MONGO_URI,options)
+    try{ 
+        await client.connect();
+        const db = client.db("Econtalks")
+            const result = await db.collection("Users").find().toArray()
+            res.status(200).json({status:200,data:result})           
+             
+    } catch(err) {
+    res.status(500).json({message:"Error while getting blogs"})
+    }}
 
+//Getting blogs by user
+const GetBlogsByUser = async (req,res)=>{
+    const {username}= req.params
+    console.log(username)
+    const client = new MongoClient(MONGO_URI,options)
+    try{ 
+        await client.connect();
+        const db = client.db("Econtalks")
+        const result = await db.collection("Blogs").find({username:username}).toArray()
+        if(result){ 
+        console.log(result)
+            res.status(200).json({status:200, data:result})}
+    } catch(err) {
+    res.status(500).json({message:"Error while getting category"})
+    }}
 //Sign-up users
 const SignUpUser = async (req,res)=>{
     const _id = uuidv4();
@@ -45,15 +72,9 @@ const SignInUser = async (req,res)=>{
     client.close()
 }
     
-    
-
-
-    // Sign-in user
-    // .get
-
-
-
-    module.exports ={
+     module.exports ={
+        GetUsers,
+        GetBlogsByUser,
         SignUpUser,
         SignInUser,
     }
